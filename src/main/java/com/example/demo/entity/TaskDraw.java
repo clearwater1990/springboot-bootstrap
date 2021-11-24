@@ -28,6 +28,10 @@ public class TaskDraw {
 
     private String actor;
 
+    private String schoolName;
+
+    private Integer drawNum;
+
     @TableField(typeHandler = JacksonTypeHandler.class)
     private JSONObject result;
 

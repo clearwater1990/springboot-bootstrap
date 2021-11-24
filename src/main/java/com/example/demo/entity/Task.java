@@ -29,6 +29,8 @@ public class Task {
 
     private String createUser;
 
+    private Integer rangeNum;
+
     @TableField(typeHandler = JacksonTypeHandler.class)
     private JSONObject info;
 

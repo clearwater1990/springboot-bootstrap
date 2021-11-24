@@ -1,0 +1,18 @@
+### 创建抽签
+POST http://localhost:8099/task/add?name=化学抽签&rangeNum=10
+
+### 抽签
+POST http://localhost:8099/task/draw/2
+Content-Type: application/json
+
+{
+  "team_name":"烯部大开发2",
+  "members":["成员22","成员3","成员3","成员4"]
+}
+
+### 查询抽签结果
+GET http://localhost:8099/task/2
+
+### 导出抽签结果
+GET http://localhost:8099/task/export/2
+
