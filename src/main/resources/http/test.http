@@ -1,5 +1,5 @@
 ### 创建抽签
-POST http://localhost:8099/task/add?name=化学抽签&rangeNum=10
+POST http://localhost:8099/task/add?name=化学抽签9&rangeNum=87
 
 ### 抽签
 POST http://localhost:8099/task/draw/2

@@ -85,3 +85,7 @@ insert into team (team_name,school_name) values ('唐乡村','浙江万里学院
 insert into team (team_name,school_name) values ('浙江承宣布政使司','浙江万里学院');
 insert into team (team_name,school_name) values ('非铜钒响','中国计量大学');
 insert into team (team_name,school_name) values ('锡锂糊涂小队','中国计量大学');
+
+insert into task (id,name,task_type,create_user,range_num,info,create_time,update_time) values (1,'化学抽签1','DRAW_ASSIGN','倪志刚',87,NULL,'2021-11-24 15:19:34.561','2021-11-24 15:19:34.561');
+insert into task (id,name,task_type,create_user,range_num,info,create_time,update_time) values (2,'化学抽签2','DRAW_ASSIGN','倪志刚',87,NULL,'2021-11-24 15:20:34.561','2021-11-24 15:20:34.561');
+insert into task (id,name,task_type,create_user,range_num,info,create_time,update_time) values (3,'化学抽签3','DRAW_ASSIGN','倪志刚',87,NULL,'2021-11-24 15:21:34.561','2021-11-24 15:21:34.561');
