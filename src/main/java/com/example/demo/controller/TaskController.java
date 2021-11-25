@@ -3,13 +3,13 @@ package com.example.demo.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.example.demo.common.Status;
 import com.example.demo.entity.Task;
-import com.example.demo.entity.TaskDraw;
 import com.example.demo.info.Result;
 import com.example.demo.info.TaskDrawDetail;
 import com.example.demo.service.TaskService;
 import com.example.demo.util.ExportCSVUtil;
 
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -45,6 +45,19 @@ public class TaskController extends BaseController {
         return Result.error(Status.TASK_HAS_EXIST);
     }
 
+    @DeleteMapping("/draw/{taskId}")
+    public Result draw(@PathVariable Long taskId) {
+        taskService.deleteTaskDrawByTaskId(taskId);
+        return Result.success("清除抽签结果成功");
+    }
+
+    @DeleteMapping("/all/{taskId}")
+    public Result drawAll(@PathVariable Long taskId) {
+        taskService.deleteTaskDrawByTaskId(taskId);
+        taskService.deleteTask(taskId);
+        return Result.success("清除任务包括抽签结果成功");
+    }
+
     @PostMapping("/draw/{taskId}")
     public Result draw(@PathVariable Long taskId, @RequestBody JSONObject data) {
         String teamName = data.getString("team_name");
@@ -67,8 +80,12 @@ public class TaskController extends BaseController {
     public Result query(@PathVariable Long taskId,
                         @RequestParam(value = "teamName", required = false) String teamName,
                         @RequestParam(value = "member", required = false) String member) {
-        List<TaskDrawDetail> list = taskService.queryTaskDraw(taskId, teamName, member);
-        return success(list);
+        try {
+            List<TaskDrawDetail> list = taskService.queryTaskDraw(taskId, teamName, member);
+            return success(list);
+        } catch (Exception e) {
+            return Result.error(e.getMessage());
+        }
     }
 
     @GetMapping("/export/{taskId}")

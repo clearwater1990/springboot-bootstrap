@@ -72,12 +72,20 @@ public class TaskService {
         taskMapper.deleteById(id);
     }
 
+    public void deleteTaskDrawByTaskId(long taskId) {
+        LambdaQueryWrapper<TaskDraw> queryWrapper = new LambdaQueryWrapper<TaskDraw>().eq(TaskDraw::getTaskId, taskId);
+        taskDrawMapper.delete(queryWrapper);
+    }
+
     public List<TaskDrawDetail> queryTaskDraw(long taskId, String teamName, String member) {
         LambdaQueryWrapper<TaskDraw> queryWrapper = new LambdaQueryWrapper<TaskDraw>().eq(TaskDraw::getTaskId, taskId).orderByAsc(TaskDraw::getDrawNum);
         if (StringUtils.isNotEmpty(teamName) || StringUtils.isNotEmpty(member)) {
             queryWrapper.like(TaskDraw::getActor, teamName).or().like(TaskDraw::getResult, member);
         }
         Task task = taskMapper.selectById(taskId);
+        if (task == null) {
+            throw new RuntimeException("抽签任务不存在");
+        }
         List<TaskDraw> list = taskDrawMapper.selectList(queryWrapper);
         if (CollectionUtils.isNotEmpty(list) && task != null) {
             List<TaskDrawDetail> dataList = list.stream().map(e -> transform(e, task)).collect(Collectors.toList());
